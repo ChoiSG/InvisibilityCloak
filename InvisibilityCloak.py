@@ -184,12 +184,11 @@ def replaceGUIDAndToolName(theDirectory: str, theName: str) -> None:
 		rename(currentToolName, theName)
 	if path.isfile(currentToolName) or path.exists(theDirectory + "\\" + currentToolName):
 		rename(currentToolName, theName)
-	try:
-		anotherOne = os.path.join(theDirectory, currentToolName)
-		os.chdir(anotherOne)
-		os.rename(currentToolName, theName)
-	except Exception as e:
-		pass
+	
+	if (path.exists(theDirectory + "\\" + theName + "\\" + currentToolName)): 
+		chdir(theDirectory + "\\" + theName)
+		rename(currentToolName, theName)
+
 	chdir(origWorkingDir)
 
 	print(f"\n[+] SUCCESS: New GUID of {newGUID} was generated and replaced in your project")
