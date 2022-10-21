@@ -185,9 +185,13 @@ def replaceGUIDAndToolName(theDirectory: str, theName: str) -> None:
 	if path.isfile(currentToolName) or path.exists(theDirectory + "\\" + currentToolName):
 		rename(currentToolName, theName)
 	
-	if (path.exists(theDirectory + "\\" + theName + "\\" + currentToolName)): 
-		chdir(theDirectory + "\\" + theName)
-		rename(currentToolName, theName)
+	# Try one more dir layer due to tools like StandIn 
+	try:
+		if (path.exists(theDirectory + "\\" + theName + "\\" + currentToolName)): 
+			chdir(theDirectory + "\\" + theName)
+			rename(currentToolName, theName)
+	except Exception as e:
+		pass 
 
 	chdir(origWorkingDir)
 
